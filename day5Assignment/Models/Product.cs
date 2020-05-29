@@ -19,7 +19,7 @@ namespace day5Assignment.Models
         [Required]
         public int NRC { get; set; }
         
-        public int Discount { get; set; }
+        public int? Discount { get; set; }
         [Required]
         public string CreatedBy { get; set; }
         
