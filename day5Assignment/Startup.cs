@@ -31,10 +31,14 @@ namespace day5Assignment
             //{
             //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             //});
-            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+            services.AddCors(options => 
+            
+            options.AddPolicy("ApiCorsPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
-            }));
+                builder.WithOrigins("http://localhost:4200", "https://product.azurewebsites.net").AllowAnyMethod().AllowAnyHeader();
+            })
+            
+            );
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             var ConnectionString = Configuration.GetConnectionString("ProductDBContext");
