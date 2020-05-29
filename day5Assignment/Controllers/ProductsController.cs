@@ -61,6 +61,7 @@ namespace day5Assignment.Controllers
                 return BadRequest();
             }
 
+            product.CreatedDate = DateTime.Now;
             _context.Entry(product).State = EntityState.Modified;
 
             try
@@ -90,6 +91,9 @@ namespace day5Assignment.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+
+            product.CreatedDate = DateTime.Now;
 
             _context.Products.Add(product);
             await _context.SaveChangesAsync();

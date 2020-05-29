@@ -22,7 +22,7 @@ namespace day5Assignment.Models
         public int Discount { get; set; }
         [Required]
         public string CreatedBy { get; set; }
-        [Required]
-        public DateTime CreatedDate { get; set; }
+        
+        public DateTime? CreatedDate { get; set; }
     }
 }

@@ -27,9 +27,19 @@ namespace day5Assignment
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            //});
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+            }));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             var ConnectionString = Configuration.GetConnectionString("ProductDBContext");
             services.AddDbContext<ProductDBContext>(options => options.UseSqlServer(ConnectionString));
+            
         }
     
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +56,16 @@ namespace day5Assignment
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseCors(builder => builder
+                                    .AllowAnyHeader()
+                                    .AllowAnyOrigin()
+                                    .AllowAnyMethod()                                   
+                                    .AllowCredentials()
+                                    );
+                                    
+            
             app.UseStaticFiles();
+            //app.UseCors(options => options.AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc(routes =>
             {
